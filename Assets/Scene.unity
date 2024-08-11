@@ -369,9 +369,9 @@ MonoBehaviour:
   waypoint2: {fileID: 666312815}
   chaseTarget: {fileID: 932343624}
   speed: 2
-  chaseDistance: 3
+  chaseDistance: 4
   explodeDistance: 1
-  lostDistance: 4
+  lostDistance: 5
 --- !u!1 &932343620
 GameObject:
   m_ObjectHideFlags: 0

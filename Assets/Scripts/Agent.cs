@@ -81,4 +81,17 @@ public class Agent : MonoBehaviour
     {
         _fsm.Tick();
     }
+
+    private void OnDrawGizmos()
+    {
+        if (Application.isPlaying)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position,chaseDistance);
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position,lostDistance);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position,explodeDistance);
+        }
+    }
 }
