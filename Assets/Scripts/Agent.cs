@@ -21,7 +21,7 @@ public class Agent : MonoBehaviour
     {
         _fsm.Init(Enum.GetValues(typeof(AgentBehaviours)).Length,Enum.GetValues(typeof(Flags)).Length);
 
-        _fsm.AddBehaviour<ChaseState>(0,
+        _fsm.AddBehaviour<ChaseState>((int)AgentBehaviours.Chase,
             onTickParameters: () => { return new object[]
             {
                 transform,
@@ -39,7 +39,7 @@ public class Agent : MonoBehaviour
                 
             }; });
         
-        _fsm.AddBehaviour<PatrolState>(1,
+        _fsm.AddBehaviour<PatrolState>((int)AgentBehaviours.Patrol,
             onTickParameters: () => { return new object[]
             {
                 transform,
@@ -57,7 +57,24 @@ public class Agent : MonoBehaviour
             {
                 
             }; });
-    
+        
+        _fsm.AddBehaviour<ExplodeState>((int)AgentBehaviours.Explode,
+            onTickParameters: () => { return new object[]
+            {
+            }; },
+            onEnterParameters: () => { return new object[]
+            {
+                
+            }; },
+            onExitParameters: () => { return new object[]
+            {
+                
+            }; });
+        
+        _fsm.SetTransition((int)AgentBehaviours.Patrol,(int)Flags.OntargetNear,(int)AgentBehaviours.Chase);
+        _fsm.SetTransition((int)AgentBehaviours.Chase,(int)Flags.OnTargetReach,(int)AgentBehaviours.Explode);
+        _fsm.SetTransition((int)AgentBehaviours.Chase,(int)Flags.OnTargetLost,(int)AgentBehaviours.Patrol);
+        _fsm.SetTransition((int)AgentBehaviours.Explode,(int)Flags.OnTargetLost,(int)AgentBehaviours.Patrol);
     }
     
     void Update()
