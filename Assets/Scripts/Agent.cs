@@ -15,13 +15,13 @@ public class Agent : MonoBehaviour
     [SerializeField] float explodeDistance;
     [SerializeField] float lostDistance;
     
-    private FSM _fsm = new FSM();
+    private FSM<AgentBehaviours,Flags> _fsm = new FSM<AgentBehaviours,Flags>();
     
     void Start()
     {
-        _fsm.Init(Enum.GetValues(typeof(AgentBehaviours)).Length,Enum.GetValues(typeof(Flags)).Length);
+        _fsm.Init();
 
-        _fsm.AddBehaviour<ChaseState>((int)AgentBehaviours.Chase,
+        _fsm.AddBehaviour<ChaseState>(AgentBehaviours.Chase,
             onTickParameters: () => { return new object[]
             {
                 transform,
@@ -39,7 +39,7 @@ public class Agent : MonoBehaviour
                 
             }; });
         
-        _fsm.AddBehaviour<PatrolState>((int)AgentBehaviours.Patrol,
+        _fsm.AddBehaviour<PatrolState>(AgentBehaviours.Patrol,
             onTickParameters: () => { return new object[]
             {
                 transform,
@@ -58,7 +58,7 @@ public class Agent : MonoBehaviour
                 
             }; });
         
-        _fsm.AddBehaviour<ExplodeState>((int)AgentBehaviours.Explode,
+        _fsm.AddBehaviour<ExplodeState>(AgentBehaviours.Explode,
             onTickParameters: () => { return new object[]
             {
             }; },
@@ -71,10 +71,13 @@ public class Agent : MonoBehaviour
                 
             }; });
         
-        _fsm.SetTransition((int)AgentBehaviours.Patrol,(int)Flags.OntargetNear,(int)AgentBehaviours.Chase);
-        _fsm.SetTransition((int)AgentBehaviours.Chase,(int)Flags.OnTargetReach,(int)AgentBehaviours.Explode);
-        _fsm.SetTransition((int)AgentBehaviours.Chase,(int)Flags.OnTargetLost,(int)AgentBehaviours.Patrol);
-        _fsm.SetTransition((int)AgentBehaviours.Explode,(int)Flags.OnTargetLost,(int)AgentBehaviours.Patrol);
+        _fsm.SetTransition(AgentBehaviours.Patrol,Flags.OntargetNear,AgentBehaviours.Chase , () => {Debug.Log("Te Vi!"); });
+        _fsm.SetTransition(AgentBehaviours.Chase,Flags.OnTargetReach,AgentBehaviours.Explode);
+        _fsm.SetTransition(AgentBehaviours.Chase,Flags.OnTargetLost,AgentBehaviours.Patrol);
+        _fsm.SetTransition(AgentBehaviours.Explode,Flags.OnTargetLost,AgentBehaviours.Patrol);
+        
+        
+        _fsm.ForceState(AgentBehaviours.Patrol);
     }
     
     void Update()
