@@ -1,0 +1,23 @@
+Grafo es una susecion lineal de nodos 
+
+HyperGrafo : es una convinacion de nodos donde todos se conectan con todos
+
+Grafo complejo es donde hay una conexion no tan lineal entre nodos o no todos estan conectados entre todos 
+	ò (Un hypergrafo donde no todos los nodos se conecten entre si)
+	ò (El grafo complejo es el mal llamado hypergrafo)
+
+El algoritmo de pathfinding lo que hace es buscar caminos hasta llegar a su objetivo (No siempre va a ser el mas eficiente)
+
+PathFinding : 
+    Algoritmo DephFirst (Hacer una relacion entre padre e hijos entre nodos para poder llegar a la meta final y su apertura es de 0,1,2,3)
+    
+    Algoritmo BreadthFirst : (Hace lo mismo que el DephFirst pero el orden de apertura es de 3,2,1,0)
+    
+    Algoritmo Dijkstra : Busca por distancia Manhattan (Dentro de la grilla) para ver cual es el nodo mas cercano hasta donde queres llegar
+                         y de esa manera le va dando prioridad a los distintos nodos para poder hacer el camino mas eficiente;
+                         "La distancia Manhattan es mejor para las grillas regulares"
+                          Desde los nodos abiertos que tengo calculo la menor dsitancia a recorrer desde el incio al nodo a evaluar
+    
+    Algoritmo A* : Calcula las distancias entre nodos para buscar el camino mas corto pero a la distancia se le suma
+                   El costo de transitabilidad (Que tan dificil es transitar entre nodo y nodo)
+                   (Osea es igual que Dijkstra pero teniendo en cuenta los costos de transitabilidad)
