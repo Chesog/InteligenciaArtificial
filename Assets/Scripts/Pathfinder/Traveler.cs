@@ -6,7 +6,7 @@ public class Traveler : MonoBehaviour
 {
     public GrapfView grapfView;
     
-    private AStarPathfinder<Node<Vector2Int>> Pathfinder;
+    private AStarPathfinder<Node<Vector2Int>> Pathfinder = new AStarPathfinder<Node<Vector2Int>>();
     //private DijstraPathfinder<Node<Vector2Int>> Pathfinder;
     //private DepthFirstPathfinder<Node<Vector2Int>> Pathfinder;
     //private BreadthPathfinder<Node<Vector2Int>> Pathfinder;

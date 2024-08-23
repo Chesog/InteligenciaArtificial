@@ -17,7 +17,7 @@ public class DepthFirstPathfinder<NodeType> : Pathfinder<NodeType> where NodeTyp
         throw new System.NotImplementedException();
     }
 
-    protected override int MoveToNeighborCost(NodeType A, NodeType b)
+    protected override int MoveToNeighborCost(NodeType A, NodeType B)
     {
         throw new System.NotImplementedException();
     }

@@ -21,3 +21,7 @@ PathFinding :
     Algoritmo A* : Calcula las distancias entre nodos para buscar el camino mas corto pero a la distancia se le suma
                    El costo de transitabilidad (Que tan dificil es transitar entre nodo y nodo)
                    (Osea es igual que Dijkstra pero teniendo en cuenta los costos de transitabilidad)
+                   
+
+Poligono de Thiessen o Diagrama de Voronoi
+algoritmo newtoniano o algoritmo de precision newtoniano (Si no puedo encontrar un balance lo dejo en donde se acerque mas al valance)

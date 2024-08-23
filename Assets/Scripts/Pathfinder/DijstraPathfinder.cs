@@ -17,7 +17,7 @@ public class DijstraPathfinder<NodeType> : Pathfinder<NodeType> where NodeType :
         throw new System.NotImplementedException();
     }
 
-    protected override int MoveToNeighborCost(NodeType A, NodeType b)
+    protected override int MoveToNeighborCost(NodeType A, NodeType B)
     {
         throw new System.NotImplementedException();
     }
