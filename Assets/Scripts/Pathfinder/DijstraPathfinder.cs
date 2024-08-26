@@ -7,7 +7,7 @@ public class DijstraPathfinder<NodeType> : Pathfinder<NodeType> where NodeType :
         throw new System.NotImplementedException();
     }
 
-    protected override ICollection<NodeType> GetNeighbors(NodeType node)
+    protected override ICollection<INode> GetNeighbors(NodeType node)
     {
         throw new System.NotImplementedException();
     }

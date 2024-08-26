@@ -13,14 +13,24 @@ public class GrapfView : MonoBehaviour
     {
         if (!Application.isPlaying)
             return;
+        
         foreach (Node<Vector2Int> node in grapf.nodes)
         {
+            if (node == null)
+                return;
+            
             if (node.IsBloqued())
                 Gizmos.color = Color.red;
             else
                 Gizmos.color = Color.green;
-            
-            Gizmos.DrawWireSphere(new Vector3(node.GetCoordinate().x, node.GetCoordinate().y), 0.1f);
+
+            Vector3 nodeCordinates = new Vector3(node.GetCoordinate().x, node.GetCoordinate().y);
+            Gizmos.DrawWireSphere(nodeCordinates, 0.1f);
+            foreach (INode neighbor in node.neighbors)
+            {
+                Vector2Int neighborCordinates = (neighbor as Node<Vector2Int>).GetCoordinate();
+                Gizmos.DrawLine(nodeCordinates,new Vector3(neighborCordinates.x,neighborCordinates.y));
+            } 
         }
     }
 }

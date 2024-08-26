@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public abstract class Pathfinder<NodeType> where NodeType : INode
 {
@@ -9,7 +10,7 @@ public abstract class Pathfinder<NodeType> where NodeType : INode
 
         foreach (NodeType node in graph)
         {
-            nodes.Add(node, (default, 0, 0));
+            nodes.Add(node, (default, Random.Range(0,10), Random.Range(0,10)));
         }
 
         List<NodeType> openList = new List<NodeType>();
@@ -64,9 +65,9 @@ public abstract class Pathfinder<NodeType> where NodeType : INode
                 }
             }
         }
-
+        
         return null;
-
+        
         List<NodeType> GeneratePath(NodeType startNode, NodeType goalNode)
         {
             List<NodeType> path = new List<NodeType>();
@@ -83,7 +84,7 @@ public abstract class Pathfinder<NodeType> where NodeType : INode
         }
     }
 
-    protected abstract ICollection<NodeType> GetNeighbors(NodeType node);
+    protected abstract ICollection<INode> GetNeighbors(NodeType node);
 
     protected abstract int Distance(NodeType A, NodeType B);
 
