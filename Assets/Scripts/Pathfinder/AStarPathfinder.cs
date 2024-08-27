@@ -1,26 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class AStarPathfinder<NodeType> : Pathfinder<NodeType>
-    where NodeType : INode
+public class AStarPathfinder<NodeType,CoordinateType> : Pathfinder<NodeType>
+    where NodeType : INode , INode<CoordinateType>
+    where CoordinateType : IEquatable<CoordinateType>
 {
     protected override int Distance(NodeType A, NodeType B)
     {
-        int xDistance =
-            Mathf.Abs((A as INode<Vector2Int>).GetCoordinate().x - (A as INode<Vector2Int>).GetCoordinate().x);
-        int yDistance =
-            Mathf.Abs((A as INode<Vector2Int>).GetCoordinate().y - (B as INode<Vector2Int>).GetCoordinate().y);
-        return Mathf.Abs(xDistance - yDistance);
+        return (int)A.CalculateDistanceTo(B.GetCoordinate());
     }
 
-    protected override ICollection<INode> GetNeighbors(NodeType node)
+    protected override ICollection<NodeType> GetNeighbors(NodeType node)
     {
         if (node == null)
         {
             Debug.LogError("this node is null");
             return null;
         }
-        return node.neighbors;
+        return null;
+        //return node.GetNeighbors();
     }
 
     protected override bool IsBloqued(NodeType node)

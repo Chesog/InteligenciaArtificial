@@ -1,33 +1,76 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class Node<Coordinate> : INode, INode<Coordinate> 
+public class Node<Coordinate> : INode, INode<Coordinate>
     , IEquatable<Node<Coordinate>> where Coordinate : IEquatable<Coordinate>
 {
-    public bool bloqued { get;private set; }
-    public ICollection<INode> neighbors { get; set; }
+    public bool bloqued { get; private set; }
+    private ICollection<INode<Coordinate>> neighbors = new List<INode<Coordinate>>();
+    private Func<Coordinate, float> DistanceTo;
     private Coordinate coordinate;
     private int nodeCost;
-
-
-    public void SetCoordinate(Coordinate coordinate) { this.coordinate = coordinate; }
-
-    public void MoveTo(Coordinate coorninate) { coordinate = coorninate; }
     
-    public Coordinate GetCoordinate() { return coordinate; }
+    public void SetDistanceMethod(Func<Coordinate, float> DistanceTo)
+    {
+        this.DistanceTo = DistanceTo;
+    }
 
-    public bool IsBloqued() { return bloqued; }
+    public ICollection<INode<Coordinate>> GetNeighbors()
+    {
+        return neighbors;
+    }
 
-    public void SetBlock(bool blockState) { bloqued = blockState; }
+    public void AddNeighbor(INode<Coordinate> neighbor)
+    {
+        neighbors.Add(neighbor);
+    }
 
-    public void SetNodeCost(int cost) { nodeCost = cost; }
-    public int GetNodeCost() { return nodeCost; }
+    public void SetCoordinate(Coordinate coordinate)
+    {
+        this.coordinate = coordinate;
+    }
+
+    public void MoveTo(Coordinate coorninate)
+    {
+        coordinate = coorninate;
+    }
+
+    public float CalculateDistanceTo(Coordinate coorninate)
+    {
+        return DistanceTo(coorninate);
+    }
+
+    public Coordinate GetCoordinate()
+    {
+        return coordinate;
+    }
+
+    public bool IsBloqued()
+    {
+        return bloqued;
+    }
+
+    public void SetBlock(bool blockState)
+    {
+        bloqued = blockState;
+    }
+
+    public void SetNodeCost(int cost)
+    {
+        nodeCost = cost;
+    }
+
+    public int GetNodeCost()
+    {
+        return nodeCost;
+    }
 
     public bool Equals(Node<Coordinate> other)
     {
         if (ReferenceEquals(null, other)) return false;
         if (ReferenceEquals(this, other)) return true;
-        return EqualityComparer<Coordinate>.Default.Equals(coordinate, other.coordinate) && nodeCost == other.nodeCost && bloqued == other.bloqued && Equals(neighbors, other.neighbors);
+        return EqualityComparer<Coordinate>.Default.Equals(coordinate, other.coordinate) &&
+               nodeCost == other.nodeCost && bloqued == other.bloqued && Equals(neighbors, other.neighbors);
     }
 
     public override bool Equals(object obj)

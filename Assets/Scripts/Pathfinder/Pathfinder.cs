@@ -84,7 +84,7 @@ public abstract class Pathfinder<NodeType> where NodeType : INode
         }
     }
 
-    protected abstract ICollection<INode> GetNeighbors(NodeType node);
+    protected abstract ICollection<NodeType> GetNeighbors(NodeType node);
 
     protected abstract int Distance(NodeType A, NodeType B);
 

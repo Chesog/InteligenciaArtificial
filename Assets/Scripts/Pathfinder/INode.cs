@@ -7,7 +7,6 @@ public interface INode
     public void SetBlock(bool blockState);
     public void SetNodeCost(int cost);
     public int GetNodeCost();
-    public ICollection<INode> neighbors { get; set; }
 }
 
 public interface INode<Coorninate> : INode where  Coorninate : IEquatable<Coorninate>
@@ -15,4 +14,8 @@ public interface INode<Coorninate> : INode where  Coorninate : IEquatable<Coorni
     public Coorninate GetCoordinate();
     public void SetCoordinate(Coorninate coordinateType);
     public void MoveTo(Coorninate coorninate);
+    public float CalculateDistanceTo(Coorninate coorninate);
+    public void SetDistanceMethod(Func<Coorninate, float> DistanceTo);
+    public ICollection<INode<Coorninate>> GetNeighbors();
+    public void AddNeighbor(INode<Coorninate> neighbor);
 }

@@ -1,11 +1,16 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Vector2IntGrapf<NodeType> 
     where NodeType : INode<Vector2Int>, INode, new()
 { 
+    
+    /*
+     * TODO : Hacer un grafo generico
+     */
     public List<NodeType> nodes = new List<NodeType>();
-
+    
     public Vector2IntGrapf(int x, int y) 
     {
         for (int i = 0; i < x; i++)
@@ -14,7 +19,10 @@ public class Vector2IntGrapf<NodeType>
             {
                 NodeType node = new NodeType();
                 node.SetCoordinate(new Vector2Int(i, j));
-                node.neighbors = new List<INode>();
+                node.SetDistanceMethod((Vector2Int other) =>
+                {
+                    return Vector2Int.Distance(node.GetCoordinate(), other);
+                });
                 node.SetNodeCost(Random.Range(0,10));
                 node.SetBlock(false);
                 nodes.Add(node);
@@ -31,16 +39,16 @@ public class Vector2IntGrapf<NodeType>
     {
         // Up Node
         if (currentNode.GetCoordinate().y + 1 < gridHeight)
-            currentNode.neighbors.Add(GetNode(currentNode.GetCoordinate().x,currentNode.GetCoordinate().y + 1) as Node<Vector2Int>);
+            currentNode.AddNeighbor(GetNode(currentNode.GetCoordinate().x,currentNode.GetCoordinate().y + 1));
         // Down Node
         if (currentNode.GetCoordinate().y - 1 >= 0)
-            currentNode.neighbors.Add(GetNode(currentNode.GetCoordinate().x,currentNode.GetCoordinate().y - 1) as Node<Vector2Int>);
+            currentNode.AddNeighbor(GetNode(currentNode.GetCoordinate().x,currentNode.GetCoordinate().y - 1));
         // Left Node
         if (currentNode.GetCoordinate().x - 1 >= 0)
-            currentNode.neighbors.Add(GetNode(currentNode.GetCoordinate().x - 1,currentNode.GetCoordinate().y) as Node<Vector2Int>);
+            currentNode.AddNeighbor(GetNode(currentNode.GetCoordinate().x - 1,currentNode.GetCoordinate().y));
         // Right Node
         if (currentNode.GetCoordinate().x + 1 < gridWidth)
-            currentNode.neighbors.Add(GetNode(currentNode.GetCoordinate().x + 1,currentNode.GetCoordinate().y) as Node<Vector2Int>);
+            currentNode.AddNeighbor(GetNode(currentNode.GetCoordinate().x + 1,currentNode.GetCoordinate().y));
     }
 
     private NodeType GetNode(int nodeX , int nodeY)

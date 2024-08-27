@@ -26,9 +26,9 @@ public class GrapfView : MonoBehaviour
 
             Vector3 nodeCordinates = new Vector3(node.GetCoordinate().x, node.GetCoordinate().y);
             Gizmos.DrawWireSphere(nodeCordinates, 0.1f);
-            foreach (INode neighbor in node.neighbors)
+            foreach (INode<Vector2Int> neighbor in node.GetNeighbors())
             {
-                Vector2Int neighborCordinates = (neighbor as Node<Vector2Int>).GetCoordinate();
+                Vector2Int neighborCordinates = neighbor.GetCoordinate();
                 Gizmos.DrawLine(nodeCordinates,new Vector3(neighborCordinates.x,neighborCordinates.y));
             } 
         }

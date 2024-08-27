@@ -6,23 +6,26 @@ public class Traveler : MonoBehaviour
 {
     public GrapfView grapfView;
     
-    //private AStarPathfinder<Node<Vector2Int>> Pathfinder = new AStarPathfinder<Node<Vector2Int>>();
-    //private DijstraPathfinder<Node<Vector2Int>> Pathfinder;
+    private AStarPathfinder<Node<Vector2Int>,Vector2Int> Pathfinder = new AStarPathfinder<Node<Vector2Int>,Vector2Int>();
+    //private DijstraPathfinder<Node<Vector2Int>> Pathfinder = new DijstraPathfinder<Node<Vector2Int>>();
     //private DepthFirstPathfinder<Node<Vector2Int>> Pathfinder = new DepthFirstPathfinder<Node<Vector2Int>>();
-    private BreadthPathfinder<Node<Vector2Int>> Pathfinder = new BreadthPathfinder<Node<Vector2Int>>();
+    //private BreadthPathfinder<Node<Vector2Int>> Pathfinder = new BreadthPathfinder<Node<Vector2Int>>();
 
     private Node<Vector2Int> startNode; 
     private Node<Vector2Int> destinationNode;
 
     void Start()
     {
+        int nodeMinValue = grapfView.grapf.nodes.Count / 2;
+        int nodeMaxValue = grapfView.grapf.nodes.Count;
+        
         startNode = new Node<Vector2Int>();
-        startNode = grapfView.grapf.nodes[Random.Range(0, grapfView.grapf.nodes.Count)];
+        startNode = grapfView.grapf.nodes[Random.Range(0,nodeMinValue)];
         //startNode.SetCoordinate(new Vector2Int(Random.Range(0, 10), Random.Range(0, 10)));
         
 
         destinationNode = new Node<Vector2Int>();
-        destinationNode = grapfView.grapf.nodes[Random.Range(0, grapfView.grapf.nodes.Count)];
+        destinationNode = grapfView.grapf.nodes[Random.Range(nodeMinValue,nodeMaxValue)];
         //destinationNode.SetCoordinate(new Vector2Int(Random.Range(0, 10), Random.Range(0, 10)));
 
         List<Node<Vector2Int>> path = Pathfinder.FindPath(startNode, destinationNode, grapfView.grapf.nodes);

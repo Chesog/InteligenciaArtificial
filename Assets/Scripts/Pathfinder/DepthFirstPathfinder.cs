@@ -1,21 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class DepthFirstPathfinder<NodeType> : Pathfinder<NodeType> where NodeType : INode
+public class DepthFirstPathfinder<NodeType,CoordinateType> : Pathfinder<NodeType> 
+    where NodeType : INode , INode<CoordinateType>
+    where CoordinateType : IEquatable<CoordinateType>
 {
     protected override int Distance(NodeType A, NodeType B)
     {
         return 0;
     }
 
-    protected override ICollection<INode> GetNeighbors(NodeType node)
+    protected override ICollection<NodeType> GetNeighbors(NodeType node)
     {
         if (node == null)
         {
             Debug.LogError("this node is null");
             return null;
         }
-        return node.neighbors;
+        return null;
     }
 
     protected override bool IsBloqued(NodeType node)
