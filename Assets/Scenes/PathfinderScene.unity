@@ -292,7 +292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grapfView: {fileID: 815766764}
-  pathfinder_flag: 2
+  pathfinder_flag: 0
 --- !u!65 &1022336795
 BoxCollider:
   m_ObjectHideFlags: 0
