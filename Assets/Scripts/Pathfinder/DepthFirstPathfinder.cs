@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DepthFirstPathfinder<NodeType,CoordinateType> : Pathfinder<NodeType> 
+public class DepthFirstPathfinder<NodeType,CoordinateType> : Pathfinder<NodeType,CoordinateType>
     where NodeType : INode , INode<CoordinateType>
     where CoordinateType : IEquatable<CoordinateType>
 {
@@ -18,7 +18,14 @@ public class DepthFirstPathfinder<NodeType,CoordinateType> : Pathfinder<NodeType
             Debug.LogError("this node is null");
             return null;
         }
-        return null;
+        ICollection<NodeType> neighbors = new List<NodeType>();
+
+        foreach (NodeType Neighbor in node.GetNeighbors())
+        {
+            neighbors.Add(Neighbor);
+        }
+
+        return neighbors;
     }
 
     protected override bool IsBloqued(NodeType node)

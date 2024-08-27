@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AStarPathfinder<NodeType,CoordinateType> : Pathfinder<NodeType>
+public class AStarPathfinder<NodeType,CoordinateType> : Pathfinder<NodeType,CoordinateType>
     where NodeType : INode , INode<CoordinateType>
     where CoordinateType : IEquatable<CoordinateType>
 {
@@ -13,13 +13,20 @@ public class AStarPathfinder<NodeType,CoordinateType> : Pathfinder<NodeType>
 
     protected override ICollection<NodeType> GetNeighbors(NodeType node)
     {
+        
         if (node == null)
         {
             Debug.LogError("this node is null");
             return null;
         }
-        return null;
-        //return node.GetNeighbors();
+        ICollection<NodeType> neighbors = new List<NodeType>();
+
+        foreach (NodeType Neighbor in node.GetNeighbors())
+        {
+            neighbors.Add(Neighbor);
+        }
+
+        return neighbors;
     }
 
     protected override bool IsBloqued(NodeType node)

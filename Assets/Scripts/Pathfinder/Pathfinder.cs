@@ -1,7 +1,15 @@
+using System;
 using System.Collections.Generic;
-using UnityEngine;
+using Random = UnityEngine.Random;
 
-public abstract class Pathfinder<NodeType> where NodeType : INode
+[Serializable]
+public enum PathfinderFlags
+{
+    AStar_Pf,Breadth_Pf,Depth_Pf,Dijstra_Pf
+}
+public abstract class Pathfinder<NodeType,CoordinateType> 
+    where NodeType : INode , INode<CoordinateType>
+    where CoordinateType : IEquatable<CoordinateType>
 {
     public List<NodeType> FindPath(NodeType startNode, NodeType destinationNode, ICollection<NodeType> graph)
     {

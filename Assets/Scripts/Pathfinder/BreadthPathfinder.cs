@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BreadthPathfinder<NodeType,CoordinateType> : Pathfinder<NodeType> 
+public class BreadthPathfinder<NodeType,CoordinateType> : Pathfinder<NodeType,CoordinateType>
     where NodeType : INode , INode<CoordinateType>
     where CoordinateType : IEquatable<CoordinateType>
 {
@@ -19,8 +19,15 @@ public class BreadthPathfinder<NodeType,CoordinateType> : Pathfinder<NodeType>
             Debug.LogError("this node is null");
             return null;
         }
-        return null;
-        //return node.neighbors.Reverse();
+        ICollection<NodeType> neighbors = new List<NodeType>();
+
+        foreach (NodeType Neighbor in node.GetNeighbors())
+        {
+            neighbors.Add(Neighbor);
+        }
+
+        neighbors.Reverse();
+        return neighbors;
     }
 
     protected override bool IsBloqued(NodeType node)

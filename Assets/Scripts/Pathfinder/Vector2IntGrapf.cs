@@ -1,17 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Vector2IntGrapf<NodeType> 
+public class Vector2IntGrapf<NodeType>
     where NodeType : INode<Vector2Int>, INode, new()
-{ 
-    
+{
     /*
      * TODO : Hacer un grafo generico
      */
     public List<NodeType> nodes = new List<NodeType>();
-    
-    public Vector2IntGrapf(int x, int y) 
+
+    public Vector2IntGrapf(int x, int y)
     {
         for (int i = 0; i < x; i++)
         {
@@ -23,7 +23,7 @@ public class Vector2IntGrapf<NodeType>
                 {
                     return Vector2Int.Distance(node.GetCoordinate(), other);
                 });
-                node.SetNodeCost(Random.Range(0,10));
+                node.SetNodeCost(Random.Range(0, 10));
                 node.SetBlock(false);
                 nodes.Add(node);
             }
@@ -31,34 +31,30 @@ public class Vector2IntGrapf<NodeType>
 
         foreach (NodeType node in nodes)
         {
-            AddNodeNeighbors(node,x,y);
+            AddNodeNeighbors(node);
         }
     }
 
-    private void AddNodeNeighbors(NodeType currentNode,int gridWidth,int gridHeight)
+    private void AddNodeNeighbors(NodeType currentNode)
     {
-        // Up Node
-        if (currentNode.GetCoordinate().y + 1 < gridHeight)
-            currentNode.AddNeighbor(GetNode(currentNode.GetCoordinate().x,currentNode.GetCoordinate().y + 1));
-        // Down Node
-        if (currentNode.GetCoordinate().y - 1 >= 0)
-            currentNode.AddNeighbor(GetNode(currentNode.GetCoordinate().x,currentNode.GetCoordinate().y - 1));
-        // Left Node
-        if (currentNode.GetCoordinate().x - 1 >= 0)
-            currentNode.AddNeighbor(GetNode(currentNode.GetCoordinate().x - 1,currentNode.GetCoordinate().y));
-        // Right Node
-        if (currentNode.GetCoordinate().x + 1 < gridWidth)
-            currentNode.AddNeighbor(GetNode(currentNode.GetCoordinate().x + 1,currentNode.GetCoordinate().y));
-    }
-
-    private NodeType GetNode(int nodeX , int nodeY)
-    {
-        NodeType desiredNode = new NodeType();
-        foreach (NodeType node in nodes)
+        foreach (NodeType neighbor in nodes)
         {
-            if (node.GetCoordinate().x == nodeX && node.GetCoordinate().y == nodeY)
-                desiredNode = node;
+            if (neighbor.GetCoordinate().x == currentNode.GetCoordinate().x &&
+                Math.Abs(neighbor.GetCoordinate().y - currentNode.GetCoordinate().y) == 1)
+                currentNode.AddNeighbor(neighbor);
+
+            else if (neighbor.GetCoordinate().y == currentNode.GetCoordinate().y &&
+                Math.Abs(neighbor.GetCoordinate().x - currentNode.GetCoordinate().x) == 1)
+                currentNode.AddNeighbor(neighbor);
+            
+            if (Math.Abs(neighbor.GetCoordinate().y - currentNode.GetCoordinate().y) == 1 && Math.Abs(neighbor.GetCoordinate().x - currentNode.GetCoordinate().x) == 1)
+                currentNode.AddNeighbor(neighbor);
+            //Debug.Log(Traveler.pathfinder_flag);
+            //if (Traveler.pathfinder_flag.Equals(PathfinderFlags.Dijstra_Pf))
+            //{
+            //    if (Math.Abs(neighbor.GetCoordinate().y - currentNode.GetCoordinate().y) == 1 && Math.Abs(neighbor.GetCoordinate().x - currentNode.GetCoordinate().x) == 1)
+            //        currentNode.AddNeighbor(neighbor);
+            //}
         }
-        return desiredNode;
     }
 }

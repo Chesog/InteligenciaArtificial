@@ -9,11 +9,7 @@ public class Node<Coordinate> : INode, INode<Coordinate>
     private Func<Coordinate, float> DistanceTo;
     private Coordinate coordinate;
     private int nodeCost;
-    
-    public void SetDistanceMethod(Func<Coordinate, float> DistanceTo)
-    {
-        this.DistanceTo = DistanceTo;
-    }
+
 
     public ICollection<INode<Coordinate>> GetNeighbors()
     {
@@ -24,20 +20,25 @@ public class Node<Coordinate> : INode, INode<Coordinate>
     {
         neighbors.Add(neighbor);
     }
-
-    public void SetCoordinate(Coordinate coordinate)
-    {
-        this.coordinate = coordinate;
-    }
-
+    
     public void MoveTo(Coordinate coorninate)
     {
         coordinate = coorninate;
     }
 
+    public void SetDistanceMethod(Func<Coordinate, float> DistanceTo)
+    {
+        this.DistanceTo = DistanceTo;
+    }
+
     public float CalculateDistanceTo(Coordinate coorninate)
     {
         return DistanceTo(coorninate);
+    }
+
+    public void SetCoordinate(Coordinate coordinate)
+    {
+        this.coordinate = coordinate;
     }
 
     public Coordinate GetCoordinate()
