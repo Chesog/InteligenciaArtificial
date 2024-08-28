@@ -244,6 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9505ac3f90de150418590939da61c3e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pathfinder_flag: 0
 --- !u!4 &815766765
 Transform:
   m_ObjectHideFlags: 0
@@ -292,7 +293,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grapfView: {fileID: 815766764}
-  pathfinder_flag: 0
 --- !u!65 &1022336795
 BoxCollider:
   m_ObjectHideFlags: 0

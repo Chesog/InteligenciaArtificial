@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class Traveler : MonoBehaviour
 {
     public GrapfView grapfView;
-    [SerializeField] private PathfinderFlags pathfinder_flag;
+    private PathfinderFlags pathfinder_flag;
 
     private Pathfinder<Node<Vector2Int>, Vector2Int> pathfinder;
     List<Node<Vector2Int>> path = new List<Node<Vector2Int>>();
@@ -17,23 +17,21 @@ public class Traveler : MonoBehaviour
 
     void Start()
     {
+        pathfinder_flag = grapfView.pathfinder_flag;
+        Debug.Log(pathfinder_flag.ToString());
         switch (pathfinder_flag)
         {
             case PathfinderFlags.AStar_Pf:
                 pathfinder = new AStarPathfinder<Node<Vector2Int>, Vector2Int>();
-                //grapfView.SetPathType(PathfinderFlags.AStar_Pf);
                 break;
             case PathfinderFlags.Breadth_Pf:
                 pathfinder = new BreadthPathfinder<Node<Vector2Int>, Vector2Int>();
-                //grapfView.SetPathType(PathfinderFlags.Breadth_Pf);
                 break;
             case PathfinderFlags.Depth_Pf:
                 pathfinder = new DepthFirstPathfinder<Node<Vector2Int>, Vector2Int>();
-                //grapfView.SetPathType(PathfinderFlags.Depth_Pf);
                 break;
             case PathfinderFlags.Dijstra_Pf:
                 pathfinder = new DijstraPathfinder<Node<Vector2Int>, Vector2Int>();
-                //grapfView.SetPathType(PathfinderFlags.Dijstra_Pf);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

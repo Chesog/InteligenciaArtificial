@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Vector2IntGrapf<NodeType>
+public class Vector2IntGrapf<NodeType,pathType>
     where NodeType : INode<Vector2Int>, INode, new()
+    where pathType : Enum
 {
     /*
      * TODO : Hacer un grafo generico
      */
     public List<NodeType> nodes = new List<NodeType>();
 
-    public Vector2IntGrapf(int x, int y)
+    public Vector2IntGrapf(int x, int y,pathType pathType)
     {
         for (int i = 0; i < x; i++)
         {
@@ -31,11 +32,11 @@ public class Vector2IntGrapf<NodeType>
 
         foreach (NodeType node in nodes)
         {
-            AddNodeNeighbors(node);
+            AddNodeNeighbors(node,pathType);
         }
     }
-
-    private void AddNodeNeighbors(NodeType currentNode)
+    
+    private void AddNodeNeighbors(NodeType currentNode , pathType path)
     {
         foreach (NodeType neighbor in nodes)
         {
@@ -47,14 +48,14 @@ public class Vector2IntGrapf<NodeType>
                 Math.Abs(neighbor.GetCoordinate().x - currentNode.GetCoordinate().x) == 1)
                 currentNode.AddNeighbor(neighbor);
             
-            if (Math.Abs(neighbor.GetCoordinate().y - currentNode.GetCoordinate().y) == 1 && Math.Abs(neighbor.GetCoordinate().x - currentNode.GetCoordinate().x) == 1)
-                currentNode.AddNeighbor(neighbor);
+            //if (Math.Abs(neighbor.GetCoordinate().y - currentNode.GetCoordinate().y) == 1 && Math.Abs(neighbor.GetCoordinate().x - currentNode.GetCoordinate().x) == 1)
+            //    currentNode.AddNeighbor(neighbor);
             //Debug.Log(Traveler.pathfinder_flag);
-            //if (Traveler.pathfinder_flag.Equals(PathfinderFlags.Dijstra_Pf))
-            //{
-            //    if (Math.Abs(neighbor.GetCoordinate().y - currentNode.GetCoordinate().y) == 1 && Math.Abs(neighbor.GetCoordinate().x - currentNode.GetCoordinate().x) == 1)
-            //        currentNode.AddNeighbor(neighbor);
-            //}
+            if (path.Equals(PathfinderFlags.Dijstra_Pf) || path.Equals(PathfinderFlags.AStar_Pf))
+            {
+                if (Math.Abs(neighbor.GetCoordinate().y - currentNode.GetCoordinate().y) == 1 && Math.Abs(neighbor.GetCoordinate().x - currentNode.GetCoordinate().x) == 1)
+                    currentNode.AddNeighbor(neighbor);
+            }
         }
     }
 }

@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class GrapfView : MonoBehaviour
 {
-    public Vector2IntGrapf<Node<Vector2Int>> grapf;
+    public Vector2IntGrapf<Node<Vector2Int>,PathfinderFlags> grapf;
+    public PathfinderFlags pathfinder_flag;
 
-    void Start()
+    private void Start()
     {
-        grapf = new Vector2IntGrapf<Node<Vector2Int>>(10, 10);
+        grapf = new Vector2IntGrapf<Node<Vector2Int>, PathfinderFlags>(10, 10, pathfinder_flag);
     }
-
+    
     private void OnDrawGizmos()
     {
         if (!Application.isPlaying)
